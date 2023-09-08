@@ -1,14 +1,17 @@
-const path = require("path");
-console.log(path.sep);
+const http = require("http");
+const server = http.createServer((req, res) => {
+  //   console.log(req);
+  if (req.url === "/") {
+    res.end("Welcome to our home page");
+  }
+  if (req.url === "/about") {
+    res.end("Here is our short history");
+  }
+  res.end(`
+  <h1>Oops!</h1>
+  <p>We can't seem to find the page you are looking for</p>
+  <a href="/">Back home </a>
+  `);
+});
 
-//Path from current place
-const filePath = path.join("/content", "subfolder", "text.txt");
-console.log(filePath);
-
-//Last file name
-const base = path.basename(filePath);
-console.log(base);
-
-// Root path starting from user
-const absolute = path.resolve(__dirname, "content", "subfolder", "text.txt");
-console.log(absolute);
+server.listen(4000);
